@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import DoctorPreview from '../components/doctor-preview/doctor-preview';
 import { DoctorPreviewInterface } from '../interfaces/doctor-interface';
@@ -7,20 +8,9 @@ function LandingPage() {
 
   const [doctor, setDoctors] = useState(Array<DoctorPreviewInterface>);
   useEffect(() => {
-    setDoctors([{
-      id: 1,
-      age: 30,
-      img: 'https://i.pravatar.cc/300',
-      name: 'Fabian',
-      specialty: 'General'
-    },
-    {
-      id: 2,
-      age: 30,
-      img: 'https://i.pravatar.cc/300',
-      name: 'Marta',
-      specialty: 'Psiquiatra'
-    }])
+    axios.get('http://localhost:5000/doctors').then((response) => {
+      setDoctors(response.data)
+    });
   }, [])
 
 
